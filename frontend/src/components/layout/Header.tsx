@@ -1,12 +1,16 @@
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, Image } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
+import logo from "../../assets/logo.png";
 
 const Header = () => {
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
         <Container>
-          <Navbar.Brand>ProShop</Navbar.Brand>
+          <Navbar.Brand>
+            <Image src={logo} fluid />
+            ProShop
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="d-md-flex gap-2">
             <div className="flex-grow-1"></div>
