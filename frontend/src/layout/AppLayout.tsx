@@ -1,7 +1,8 @@
 import { Container } from "react-bootstrap";
 import { Fragment } from "react/jsx-runtime";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
+import HomePage from "../pages/HomePage";
 
 const App = () => {
   return (
@@ -9,7 +10,7 @@ const App = () => {
       <Header />
       <main className="my-3">
         <Container>
-          <h1>Hello!</h1>
+          <HomePage />
         </Container>
       </main>
       <Footer />
