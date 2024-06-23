@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Product from "../../types/Product";
+import Product from "../types/Product";
 
 interface Props {
   product: Product;

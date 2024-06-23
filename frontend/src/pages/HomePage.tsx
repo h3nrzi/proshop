@@ -1,7 +1,7 @@
 import { Fragment } from "react/jsx-runtime";
 import products from "../products";
 import { Col, Row } from "react-bootstrap";
-import ProductCard from "../components/common/ProductCard";
+import ProductCard from "../components/ProductCard";
 
 const HomePage = () => {
   return (
