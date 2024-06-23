@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { Express } from "express";
 const app = require("express")() as Express;
 import products from "./data/products";
