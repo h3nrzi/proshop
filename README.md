@@ -47,3 +47,27 @@ my-app/
 ├── package.json
 └── ...
 ```
+
+```bash - backend
+my-express-app
+├── src
+│   ├── controllers
+│   │   └── userController.ts
+│   ├── routes
+│   │   └── userRoutes.ts
+│   ├── models
+│   │   └── userModel.ts
+│   ├── middlewares
+│   │   └── authMiddleware.ts
+│   ├── services
+│   │   └── userService.ts
+│   ├── utils
+│   │   └── logger.ts
+│   ├── app.ts
+│   └── server.ts
+├── .env
+├── .gitignore
+├── package.json
+├── tsconfig.json
+└── tsconfig.build.json
+```
