@@ -1,14 +1,17 @@
-import { Fragment } from "react";
-import { Link, useParams } from "react-router-dom";
-import products from "../products";
+import axios from "axios";
+import { Fragment, useEffect, useState } from "react";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
 import Rating from "../components/Rating";
+import Product from "../types/Product";
 
 const ProductPage = () => {
   const { id: productId } = useParams();
-  const product = products.find((product) => product._id === productId);
+  const [product, setProduct] = useState<Product>({} as Product);
 
-  if (!product) return undefined;
+  useEffect(() => {
+    axios.get<Product>(`/api/products/${productId}`).then((res) => setProduct(res.data));
+  }, [productId]);
 
   return (
     <Fragment>
@@ -52,7 +55,7 @@ const ProductPage = () => {
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item className="text-center">
-                <Button disabled={product.countInStock === 0} className="px-5">
+                <Button disabled={product.countInStock === 0} className="px-3">
                   Add To Cart
                 </Button>
               </ListGroup.Item>
