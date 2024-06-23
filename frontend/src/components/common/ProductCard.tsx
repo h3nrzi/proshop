@@ -1,6 +1,7 @@
-import { Card } from "react-bootstrap";
-import Product from "../../types/Product";
 import { FC } from "react";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Product from "../../types/Product";
 
 interface Props {
   product: Product;
@@ -9,7 +10,7 @@ interface Props {
 const ProductCard: FC<Props> = ({ product }) => {
   return (
     <Card className="my-3 p-3 rounded">
-      <a href={`product/${product._id}`} className=" text-decoration-none">
+      <Link to={`product/${product._id}`} className=" text-decoration-none">
         <Card.Img src={product.image} variant="top" />
         <Card.Body>
           <Card.Title as="div">
@@ -17,7 +18,7 @@ const ProductCard: FC<Props> = ({ product }) => {
           </Card.Title>
           <Card.Text as="h3">${product.price}</Card.Text>
         </Card.Body>
-      </a>
+      </Link>
     </Card>
   );
 };

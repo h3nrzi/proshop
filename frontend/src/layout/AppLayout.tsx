@@ -1,8 +1,8 @@
 import { Container } from "react-bootstrap";
+import { Outlet } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
-import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
-import HomePage from "../pages/HomePage";
+import Header from "../components/layout/Header";
 
 const App = () => {
   return (
@@ -10,7 +10,7 @@ const App = () => {
       <Header />
       <main className="my-3">
         <Container>
-          <HomePage />
+          <Outlet />
         </Container>
       </main>
       <Footer />
