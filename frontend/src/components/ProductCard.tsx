@@ -2,6 +2,8 @@ import { FC } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Product from "../types/Product";
+import Rating from "./Rating";
+import "./Rating.css";
 
 interface Props {
   product: Product;
@@ -16,6 +18,9 @@ const ProductCard: FC<Props> = ({ product }) => {
           <Card.Title as="div">
             <strong>{product.name}</strong>
           </Card.Title>
+          <Card.Text as="div">
+            <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+          </Card.Text>
           <Card.Text as="h3">${product.price}</Card.Text>
         </Card.Body>
       </Link>
