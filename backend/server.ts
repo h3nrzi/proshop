@@ -3,6 +3,8 @@ import { Express } from "express";
 const app = require("express")() as Express;
 import products from "./data/products";
 
+require("./start/db")();
+
 app.get("/", (req, res) => res.status(200).send("API running..."));
 
 app.get("/api/products", (req, res) => res.status(200).json(products));
