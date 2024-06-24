@@ -4,16 +4,21 @@
   "description": "eCommerce app built with the MERN stack",
   "main": "server.ts",
   "scripts": {
+    "data:import": "ts-node backend/data/seeder.ts -i",
+    "data:destroy": "ts-node backend/data/seeder.ts -d",
     "server": "nodemon backend/server.ts",
     "client": "npm run dev --prefix frontend",
     "start:dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "node backend/dist/server.js"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
     "express": "^4.19.2",
     "mongoose": "^7.0.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^4.17.21",
     "@types/node": "^20.12.8",
     "concurrently": "^7.6.0",
