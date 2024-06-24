@@ -15,7 +15,7 @@ const ProductPage = () => {
 
   return (
     <Fragment>
-      <Link to="/" className="btn btn-outline-primary my-3 text-decoration-none">
+      <Link to="/" className="btn btn-primary my-3 text-decoration-none">
         Go Back
       </Link>
       <Row className="gap-5 gap-md-0">

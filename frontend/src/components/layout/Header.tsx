@@ -1,33 +1,49 @@
-import { Navbar, Nav, Container, Image } from "react-bootstrap";
+import { Container, Image, Nav, Navbar } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
-import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import ThemeSwitch from "../ThemeSwitch";
 
 const Header = () => {
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
         <Container>
-          <Link to="/" className="text-decoration-none">
+          <Link to="/" className="text-decoration-none me-auto">
             <Navbar.Brand as="span">
               <Image src={logo} fluid />
               ProShop
             </Navbar.Brand>
           </Link>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav" className="d-md-flex gap-2">
+
+          <div className="d-block d-md-none ms-3">
+            <ThemeSwitch />
+          </div>
+
+          <Navbar.Collapse id="basic-navbar-nav">
+            <div className="d-md-none m-3"></div>
+
+            {/*Search Box */}
             <div className="flex-grow-1"></div>
+
             <Nav className="d-md-flex gap-2">
               <Link to="/cart" className="text-decoration-none">
                 <Nav.Link as="span">
                   <FaShoppingCart /> Cart
                 </Nav.Link>
               </Link>
+
               <Link to="/login" className="text-decoration-none">
                 <Nav.Link as="span">
                   <FaUser /> Sign In
                 </Nav.Link>
               </Link>
+
+              <div className="d-none d-md-block ms-3">
+                <ThemeSwitch />
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>
