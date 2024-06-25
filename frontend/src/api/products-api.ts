@@ -7,18 +7,22 @@ interface Response {
   GetOne: Product;
 }
 
-const PRODUCT_TAG = "Products";
-
 const productsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query<Response["GetAll"], void>({
       query: () => ({
         url: PRODUCT_URL,
       }),
-      providesTags: [PRODUCT_TAG],
+      providesTags: ["Products"],
+    }),
+
+    getProduct: builder.query<Response["GetOne"], { productId: string }>({
+      query: ({ productId }) => ({
+        url: `${PRODUCT_URL}/${productId}`,
+      }),
     }),
   }),
 });
 
-export const { useGetAllProductsQuery } = productsApi;
+export const { useGetAllProductsQuery, useGetProductQuery } = productsApi;
 export default productsApi;
