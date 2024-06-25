@@ -1,26 +1,27 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Fragment } from "react/jsx-runtime";
+import { useGetAllProductsQuery } from "../api/products-api";
 import ProductCard from "../components/ProductCard";
-import Product from "../types/Product";
+import getErrorMessage from "../utils/getErrorMessage";
 
 const HomePage = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    axios.get<Product[]>("/api/products").then((res) => setProducts(res.data));
-  }, []);
+  const { data: products, isLoading: productsQueryLoading, error: productsQueryError } = useGetAllProductsQuery();
 
   return (
     <Fragment>
       <h1>Latest Products</h1>
       <Row>
-        {products.map((product) => (
-          <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
-            <ProductCard product={product} />
-          </Col>
-        ))}
+        {productsQueryLoading ? (
+          <h2>Loading...</h2>
+        ) : productsQueryError ? (
+          <p className="text-danger">{getErrorMessage(productsQueryError)}</p>
+        ) : (
+          products?.map((product) => (
+            <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+              <ProductCard product={product} />
+            </Col>
+          ))
+        )}
       </Row>
     </Fragment>
   );
