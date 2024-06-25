@@ -2,6 +2,7 @@ import { Col, Row } from "react-bootstrap";
 import { Fragment } from "react/jsx-runtime";
 import { useGetAllProductsQuery } from "../api/products-api";
 import ProductCard from "../components/ProductCard";
+import ProductCardSkeleton from "../components/ProductCardSkeleton";
 import getErrorMessage from "../utils/getErrorMessage";
 
 const HomePage = () => {
@@ -12,7 +13,13 @@ const HomePage = () => {
       <h1>Latest Products</h1>
       <Row>
         {productsQueryLoading ? (
-          <h2>Loading...</h2>
+          <Fragment>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <Col sm={12} md={6} lg={4} xl={3} key={i}>
+                <ProductCardSkeleton />
+              </Col>
+            ))}
+          </Fragment>
         ) : productsQueryError ? (
           <p className="text-danger">{getErrorMessage(productsQueryError)}</p>
         ) : (
