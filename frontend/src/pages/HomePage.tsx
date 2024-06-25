@@ -4,6 +4,7 @@ import { useGetAllProductsQuery } from "../api/products-api";
 import ProductCard from "../components/ProductCard";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
 import getErrorMessage from "../utils/getErrorMessage";
+import Message from "../components/Message";
 
 const HomePage = () => {
   const { data: products, isLoading: productsQueryLoading, error: productsQueryError } = useGetAllProductsQuery();
@@ -21,7 +22,7 @@ const HomePage = () => {
             ))}
           </Fragment>
         ) : productsQueryError ? (
-          <p className="text-danger">{getErrorMessage(productsQueryError)}</p>
+          <Message variant="danger">{getErrorMessage(productsQueryError)}</Message>
         ) : (
           products?.map((product) => (
             <Col sm={12} md={6} lg={4} xl={3} key={product._id}>

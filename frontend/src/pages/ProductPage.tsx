@@ -1,6 +1,8 @@
 import { Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGetProductQuery } from "../api/products-api";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 import ProductDetail from "../components/ProductDetail";
 import getErrorMessage from "../utils/getErrorMessage";
 
@@ -19,9 +21,11 @@ const ProductPage = () => {
         Go Back
       </Link>
       {productQueryLoading ? (
-        <p>Loading...</p>
+        <div className="text-center mt-5">
+          <Loader />
+        </div>
       ) : productQueryError ? (
-        <p className="text-danger">{getErrorMessage(productQueryError)}</p>
+        <Message variant="danger">{getErrorMessage(productQueryError)}</Message>
       ) : (
         <ProductDetail product={product!} />
       )}
