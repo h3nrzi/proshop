@@ -5,10 +5,10 @@ import Rating from "./Rating";
 
 interface Props {
   product: Product;
-  addToCartHandler(qty: number): void;
+  onAddToCart(qty: number): void;
 }
 
-const ProductDetail: FC<Props> = ({ product, addToCartHandler }) => {
+const ProductDetail: FC<Props> = ({ product, onAddToCart }) => {
   const [qty, setQty] = useState(1);
 
   return (
@@ -69,10 +69,7 @@ const ProductDetail: FC<Props> = ({ product, addToCartHandler }) => {
             )}
 
             <ListGroup.Item className="text-center">
-              <Button
-                disabled={product.countInStock === 0}
-                className="px-3"
-                onClick={() => addToCartHandler(qty)}>
+              <Button disabled={product.countInStock === 0} className="px-3" onClick={() => onAddToCart(qty)}>
                 Add To Cart
               </Button>
             </ListGroup.Item>

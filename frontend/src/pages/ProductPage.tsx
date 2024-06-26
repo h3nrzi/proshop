@@ -55,7 +55,7 @@ const ProductPage = () => {
       ) : productQueryError ? (
         <Message variant="danger">{getErrorMessage(productQueryError)}</Message>
       ) : (
-        <ProductDetail product={product!} addToCartHandler={addToCartHandler} />
+        <ProductDetail product={product!} onAddToCart={addToCartHandler} />
       )}
     </Fragment>
   );
