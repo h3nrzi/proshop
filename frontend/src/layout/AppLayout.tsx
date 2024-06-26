@@ -1,5 +1,7 @@
 import { Container } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import { Fragment } from "react/jsx-runtime";
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
@@ -14,6 +16,7 @@ const App = () => {
         </Container>
       </main>
       <Footer />
+      <ToastContainer />
     </Fragment>
   );
 };

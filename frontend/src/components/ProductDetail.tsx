@@ -1,13 +1,16 @@
-import { FC } from "react";
-import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
+import { FC, useState } from "react";
+import { Button, Card, Col, Form, Image, ListGroup, Row } from "react-bootstrap";
 import Product from "../types/Product";
 import Rating from "./Rating";
 
 interface Props {
   product: Product;
+  addToCartHandler(qty: number): void;
 }
 
-const ProductDetail: FC<Props> = ({ product }) => {
+const ProductDetail: FC<Props> = ({ product, addToCartHandler }) => {
+  const [qty, setQty] = useState(1);
+
   return (
     <Row className="gap-5 gap-md-0">
       <Col md={5}>
@@ -45,8 +48,31 @@ const ProductDetail: FC<Props> = ({ product }) => {
                 </Col>
               </Row>
             </ListGroup.Item>
+
+            {product.countInStock > 0 && (
+              <ListGroup.Item>
+                <Row>
+                  <Col>Quantity</Col>
+                  <Col>
+                    <Form.Control as="select" value={qty} onChange={(e) => setQty(+e.currentTarget.value)}>
+                      {Array.from({ length: product.countInStock })
+                        .map((_, i) => i + 1)
+                        .map((num) => (
+                          <option value={num} key={num} className="text-center">
+                            {num}
+                          </option>
+                        ))}
+                    </Form.Control>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            )}
+
             <ListGroup.Item className="text-center">
-              <Button disabled={product.countInStock === 0} className="px-3">
+              <Button
+                disabled={product.countInStock === 0}
+                className="px-3"
+                onClick={() => addToCartHandler(qty)}>
                 Add To Cart
               </Button>
             </ListGroup.Item>
