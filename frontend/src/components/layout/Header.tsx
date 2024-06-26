@@ -1,10 +1,14 @@
-import { Container, Image, Nav, Navbar } from "react-bootstrap";
+import { Badge, Container, Image, Nav, Navbar } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import ThemeSwitch from "../ThemeSwitch";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const Header = () => {
+  const { orderItems } = useSelector((s: RootState) => s.cart);
+
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
@@ -31,7 +35,12 @@ const Header = () => {
             <Nav className="d-md-flex gap-2">
               <Link to="/cart" className="text-decoration-none">
                 <Nav.Link as="span">
-                  <FaShoppingCart /> Cart
+                  {orderItems.length > 0 && (
+                    <Badge pill className="me-1">
+                      {orderItems.reduce((acc, item) => acc + item.qty, 0)}
+                    </Badge>
+                  )}
+                  <FaShoppingCart /> Cart{" "}
                 </Nav.Link>
               </Link>
 
