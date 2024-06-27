@@ -1,6 +1,7 @@
 import express from "express";
 import * as authController from "../controllers/auth-controller";
 import * as userController from "../controllers/user-controller";
+import * as auth from "../middlewares/auth";
 import catchAsync from "../middlewares/catchAsync";
 const router = express.Router();
 
@@ -9,6 +10,7 @@ router.post("/auth", catchAsync(authController.login));
 router.post("/logout", catchAsync(authController.logout));
 
 /////////////////// Private
+router.use(catchAsync(auth.protect));
 
 router
   .route("/profile")
@@ -16,6 +18,7 @@ router
   .patch(catchAsync(userController.updateUserProfile));
 
 /////////////////// Admin
+router.use(catchAsync(auth.admin));
 
 router.get("/", catchAsync(userController.getAllUsers));
 
