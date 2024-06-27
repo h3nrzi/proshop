@@ -21,7 +21,9 @@ export const login: RequestHandler = async (req, res) => {
     throw new Error("Invalid Email or Password");
   }
 
-  return res.status(200).json(_.pick(user, "_id", "name", "email", "isAdmin"));
+  user.generateAuthToken(res);
+
+  return res.status(200).json(_.pick(user, "name", "email", "isAdmin"));
 };
 
 // @desc    Register user

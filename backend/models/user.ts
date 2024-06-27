@@ -1,4 +1,6 @@
 import bcrypt from "bcryptjs";
+import { Response } from "express";
+import jwt from "jsonwebtoken";
 import { model, Schema } from "mongoose";
 
 interface User {
@@ -6,7 +8,8 @@ interface User {
   email: string;
   password: string;
   isAdmin: boolean;
-  comparePassword(enteredPassword: string): Promise<boolean>;
+  comparePassword: (enteredPassword: string) => Promise<boolean>;
+  generateAuthToken: (res: Response) => void;
 }
 
 const userSchema = new Schema<User>(
@@ -55,6 +58,19 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.comparePassword = async function (enteredPassword: string) {
   return await bcrypt.compare(enteredPassword, this.password);
+};
+
+userSchema.methods.generateAuthToken = function (res: Response) {
+  const token = jwt.sign({ userId: this._id }, process.env.JWT_SECRET!, {
+    expiresIn: "30d",
+  });
+
+  res.cookie("jwt", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+  });
 };
 
 const User = model("User", userSchema);
