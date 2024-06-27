@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { model, Schema } from "mongoose";
 
 interface User {
@@ -39,6 +40,22 @@ const userSchema = new Schema<User>(
     timestamps: true,
   }
 );
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    return next();
+  } catch (err: any) {
+    return next(err);
+  }
+});
+
+userSchema.methods.comparePassword = async function (enteredPassword: string) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const User = model("User", userSchema);
 export default User;
