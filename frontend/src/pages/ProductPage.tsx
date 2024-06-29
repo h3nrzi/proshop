@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useGetProductQuery } from "../api/products-api";
 import { addToCart } from "../app/cart-slice";
-import Message from "../components/Message";
+import Message from "../components/common/Message";
 import ProductDetail from "../components/ProductDetail";
 import ProductDetailPlaceholder from "../components/ProductDetailSkeleton";
 import { RootState } from "../store";

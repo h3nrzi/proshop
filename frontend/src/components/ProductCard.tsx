@@ -2,8 +2,7 @@ import { FC } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Product from "../types/Product";
-import Rating from "./Rating";
-import "./Rating.css";
+import Rating from "./common/Rating";
 
 interface Props {
   product: Product;

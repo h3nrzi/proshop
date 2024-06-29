@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { addToCart, removeFromCart } from "../app/cart-slice";
 import CartItem from "../components/CartItem";
 import CartSummary from "../components/CartSummary";
-import Message from "../components/Message";
+import Message from "../components/common/Message";
 import { RootState } from "../store";
 import Product from "../types/Product";
 

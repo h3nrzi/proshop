@@ -4,10 +4,14 @@ import { useGetAllProductsQuery } from "../api/products-api";
 import ProductCard from "../components/ProductCard";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
 import getErrorMessage from "../utils/getErrorMessage";
-import Message from "../components/Message";
+import Message from "../components/common/Message";
 
 const HomePage = () => {
-  const { data: products, isLoading: productsQueryLoading, error: productsQueryError } = useGetAllProductsQuery();
+  const {
+    data: products,
+    isLoading: productsQueryLoading,
+    error: productsQueryError,
+  } = useGetAllProductsQuery();
 
   return (
     <Fragment>

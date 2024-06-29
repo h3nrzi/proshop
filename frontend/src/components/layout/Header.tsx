@@ -9,7 +9,7 @@ import { resetCart } from "../../app/cart-slice";
 import logo from "../../assets/logo.png";
 import { RootState } from "../../store";
 import { UserInfo } from "../../types/Auth";
-import ThemeSwitch from "../ThemeSwitch";
+import ThemeSwitch from "../common/ThemeSwitch";
 
 export default function Header() {
   const navigate = useNavigate();

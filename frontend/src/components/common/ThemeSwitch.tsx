@@ -1,5 +1,5 @@
 import { Form } from "react-bootstrap";
-import useTheme from "../theme/useTheme";
+import useTheme from "../../theme/useTheme";
 
 const ThemeSwitch = () => {
   const { theme, toggleTheme } = useTheme();

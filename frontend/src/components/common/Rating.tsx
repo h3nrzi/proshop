@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import "./Rating.css";
 
 interface Props {
   value: number;

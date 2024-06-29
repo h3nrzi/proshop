@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { Button, Card, Col, Form, Image, ListGroup, Row } from "react-bootstrap";
 import Product from "../types/Product";
-import Rating from "./Rating";
+import Rating from "./common/Rating";
 
 interface Props {
   product: Product;

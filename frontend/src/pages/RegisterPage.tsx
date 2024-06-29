@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useRegisterMutation } from "../api/users-api";
 import { setCredentials } from "../app/auth-slice";
-import FormContainer from "../components/FormContainer";
+import FormContainer from "../components/common/FormContainer";
 import { RootState } from "../store";
 
 interface FormData {

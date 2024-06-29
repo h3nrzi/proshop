@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { saveShippingAddress } from "../app/cart-slice";
-import FormContainer from "../components/FormContainer";
+import FormContainer from "../components/common/FormContainer";
 import { RootState } from "../store";
 
 type FormData = {
