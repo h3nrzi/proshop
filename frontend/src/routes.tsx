@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "./layout/AppLayout";
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
+import PrivateLayout from "./layout/PrivateLayout";
 import CartPage from "./pages/CartPage";
+import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import PaymentPage from "./pages/PaymentPage";
+import ProductPage from "./pages/ProductPage";
 import RegisterPage from "./pages/RegisterPage";
 import ShippingPage from "./pages/ShippingPage";
-import PrivateLayout from "./layout/PrivateLayout";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <PrivateLayout />,
-        children: [{ path: "shipping", element: <ShippingPage /> }],
+        children: [
+          { path: "shipping", element: <ShippingPage /> },
+          { path: "payment", element: <PaymentPage /> },
+        ],
       },
     ],
   },
