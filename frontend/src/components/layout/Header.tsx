@@ -1,17 +1,34 @@
 import { Badge, Container, Dropdown, Image, Nav, Navbar } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useLogoutMutation } from "../../api/users-api";
+import { clearCredentials } from "../../app/auth-slice";
+import { resetCart } from "../../app/cart-slice";
 import logo from "../../assets/logo.png";
 import { RootState } from "../../store";
 import { UserInfo } from "../../types/Auth";
 import ThemeSwitch from "../ThemeSwitch";
 
 export default function Header() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const orderItems = useSelector((s: RootState) => s.cart.orderItems);
   const userInfo = useSelector((s: RootState) => s.auth.userInfo);
+  const [logoutMutation] = useLogoutMutation();
 
-  const logoutHandler = async () => {};
+  const logoutHandler = async () => {
+    try {
+      await logoutMutation().unwrap();
+      dispatch(clearCredentials());
+      dispatch(resetCart());
+      navigate("/");
+      location.reload();
+    } catch (err) {
+      toast.error("some error occurred!", { position: "top-center" });
+    }
+  };
 
   return (
     <header>
