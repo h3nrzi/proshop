@@ -16,6 +16,14 @@ interface RequestData {
 
 const usersApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    register: builder.mutation<ResponseData["Register"], RequestData["Register"]>({
+      query: (data) => ({
+        url: `${USERS_URL}/register`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     login: builder.mutation<ResponseData["Login"], RequestData["Login"]>({
       query: (data) => ({
         url: `${USERS_URL}/auth`,
@@ -33,4 +41,4 @@ const usersApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation } = usersApi;
+export const { useRegisterMutation, useLoginMutation, useLogoutMutation } = usersApi;
