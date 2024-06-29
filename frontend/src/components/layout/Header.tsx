@@ -1,13 +1,17 @@
-import { Badge, Container, Image, Nav, Navbar } from "react-bootstrap";
+import { Badge, Container, Dropdown, Image, Nav, Navbar } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import ThemeSwitch from "../ThemeSwitch";
-import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { UserInfo } from "../../types/Auth";
+import ThemeSwitch from "../ThemeSwitch";
 
-const Header = () => {
-  const { orderItems } = useSelector((s: RootState) => s.cart);
+export default function Header() {
+  const orderItems = useSelector((s: RootState) => s.cart.orderItems);
+  const userInfo = useSelector((s: RootState) => s.auth.userInfo);
+
+  const logoutHandler = async () => {};
 
   return (
     <header>
@@ -29,24 +33,25 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <div className="d-md-none m-3"></div>
 
-            {/*Search Box */}
             <div className="flex-grow-1"></div>
 
             <Nav className="d-md-flex gap-2">
+              {userInfo ? (
+                <ProfileDropdown onLogout={logoutHandler} userInfo={userInfo} />
+              ) : (
+                <Link to="/login" className="text-decoration-none">
+                  <Nav.Link as="span">
+                    <FaUser /> Sign In
+                  </Nav.Link>
+                </Link>
+              )}
+
               <Link to="/cart" className="text-decoration-none">
                 <Nav.Link as="span">
                   {orderItems.length > 0 && (
-                    <Badge pill className="me-1">
-                      {orderItems.reduce((acc, item) => acc + item.qty, 0)}
-                    </Badge>
+                    <Badge className="me-1">{orderItems.reduce((acc, item) => acc + item.qty, 0)}</Badge>
                   )}
-                  <FaShoppingCart /> Cart{" "}
-                </Nav.Link>
-              </Link>
-
-              <Link to="/login" className="text-decoration-none">
-                <Nav.Link as="span">
-                  <FaUser /> Sign In
+                  <FaShoppingCart /> Cart
                 </Nav.Link>
               </Link>
 
@@ -59,6 +64,26 @@ const Header = () => {
       </Navbar>
     </header>
   );
-};
+}
 
-export default Header;
+const ProfileDropdown = ({ userInfo, onLogout }: { userInfo: UserInfo; onLogout(): void }) => {
+  return (
+    <Dropdown>
+      <Dropdown.Toggle
+        id="dropdown-custom-components"
+        size="sm"
+        variant="secondary"
+        style={{ width: "60px", paddingRight: "20px", color: "#fff" }}>
+        <Image src="/images/profile.webp" roundedCircle fluid />
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Header>{userInfo.email}</Dropdown.Header>
+        <Link to="/profile" className="dropdown-item">
+          Profile
+        </Link>
+        <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
