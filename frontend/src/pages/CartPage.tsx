@@ -8,6 +8,7 @@ import CartSummary from "../components/CartSummary";
 import Message from "../components/common/Message";
 import { RootState } from "../store";
 import Product from "../types/Product";
+import CheckoutSteps from "../components/common/CheckoutSteps";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const CartPage = () => {
 
   return (
     <Row>
+      <CheckoutSteps step1 />
       <Col md={8}>
         <h1 className="mb-5">Shopping Cart</h1>
         {orderItems.length === 0 ? (

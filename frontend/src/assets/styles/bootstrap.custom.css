@@ -52,7 +52,7 @@
   --bs-info-text: #117a8b;
   --bs-warning-text: #856404;
   --bs-danger-text: #c82333;
-  --bs-light-text: #6c757d;
+  --bs-light-text: #3b464f;
   --bs-dark-text: #343a40;
   --bs-primary-bg-subtle: #cce5ff;
   --bs-secondary-bg-subtle: #e2e3e5;
@@ -4299,8 +4299,8 @@ fieldset:disabled .btn {
   --bs-nav-link-padding-x: 1rem;
   --bs-nav-link-padding-y: 0.5rem;
   --bs-nav-link-font-weight: ;
-  --bs-nav-link-color: var(--bs-link-color);
-  --bs-nav-link-hover-color: var(--bs-link-hover-color);
+  --bs-nav-link-color: var(--bs-light-text);
+  --bs-nav-link-hover-color: var(--bs-light-text);
   --bs-nav-link-disabled-color: var(--bs-secondary-color);
   display: flex;
   flex-wrap: wrap;

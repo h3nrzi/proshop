@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { saveShippingAddress } from "../app/cart-slice";
 import FormContainer from "../components/common/FormContainer";
 import { RootState } from "../store";
+import CheckoutSteps from "../components/common/CheckoutSteps";
 
 type FormData = {
   address: string;
@@ -40,6 +41,7 @@ const ShippingPage = () => {
 
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <h1>Shipping</h1>
       <Form className="mt-5" onSubmit={handleSubmit(submitHandler)}>
         <Stack direction="vertical" gap={3}>
