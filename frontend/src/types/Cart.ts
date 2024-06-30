@@ -1,6 +1,6 @@
 import Product from "./Product";
 
-interface ShippingAddress {
+export interface ShippingAddress {
   address: string;
   city: string;
   country: string;

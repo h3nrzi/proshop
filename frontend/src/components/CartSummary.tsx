@@ -25,7 +25,7 @@ const CartSummary = ({ orderItems, onCheckout }: CartSummaryProps) => {
         <ListGroup.Item className="text-center">
           <Button
             type="button"
-            className="px-5 text-white"
+            className="w-75 text-white"
             disabled={orderItems.length === 0}
             onClick={onCheckout}>
             Proceed To Checkout
