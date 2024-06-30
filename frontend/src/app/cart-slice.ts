@@ -41,6 +41,13 @@ const cartSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(cart));
     },
 
+    resetOrderItems: (cart) => {
+      cart.orderItems = [];
+
+      cart = updateCart(cart);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    },
+
     resetCart: (cart) => {
       cart = initialCartState;
       localStorage.removeItem("cart");
@@ -62,6 +69,12 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, resetCart, saveShippingAddress, savePaymentMethod } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  resetOrderItems,
+  resetCart,
+  saveShippingAddress,
+  savePaymentMethod,
+} = cartSlice.actions;
 export default cartSlice;
