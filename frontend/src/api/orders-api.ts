@@ -24,7 +24,12 @@ const orderApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // Queries
 
-    getOrder: builder.query<ResponseData["GetOrder"], RequestData["GetOrder"]>({
+    getAllOrders: builder.query<Res["GetAllOrders"], void>({
+      query: () => ({ url: ORDER_URL }),
+      providesTags: ["Orders"],
+    }),
+
+    getOrder: builder.query<Res["GetOrder"], Req["GetOrder"]>({
       query: ({ orderId }) => ({ url: `${ORDER_URL}/${orderId}` }),
     }),
 
@@ -56,13 +61,25 @@ const orderApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Orders", "MyOrders"],
     }),
+
+    updateOrderToDeliver: builder.mutation<
+      Res["UpdateOrderToDeliver"],
+      Req["UpdateOrderToDeliver"]
+    >({
+      query: ({ orderId }) => ({
+        url: `${ORDER_URL}/${orderId}/deliver`,
+        method: "PATCH",
+      }),
+    }),
   }),
 });
 
 export const {
+  useGetAllOrdersQuery,
   useGetOrderQuery,
   useGetMyOrdersQuery,
   useCreateOrderMutation,
   useGetPayPalClientIdQuery,
   useUpdateOrderToPaidMutation,
+  useUpdateOrderToDeliverMutation,
 } = orderApi;

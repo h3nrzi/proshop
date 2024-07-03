@@ -25,11 +25,13 @@ const LoginPage = () => {
   const searchParams = new URLSearchParams(search);
   const redirect = searchParams.get("redirect") || "/";
   const isprivate = Boolean(searchParams.get("isprivate"));
+  const isAdmin = Boolean(searchParams.get("isAdmin"));
 
   useEffect(() => {
+    if (isAdmin) toast.warn("Unauthorized to perform this action", { position: "top-center" });
     if (!userInfo && isprivate) toast.warn("Please login first!", { position: "top-center" });
     if (userInfo) navigate(redirect);
-  }, [userInfo, redirect, navigate, isprivate]);
+  }, [userInfo, redirect, navigate, isprivate, isAdmin]);
 
   const submitHandler = async (data: FormData) => {
     try {

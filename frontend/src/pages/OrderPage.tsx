@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import {
   useGetOrderQuery,
   useGetPayPalClientIdQuery,
+  useUpdateOrderToDeliverMutation,
   useUpdateOrderToPaidMutation,
 } from "../api/orders-api";
 import Loader from "../components/common/Loader";
@@ -40,6 +41,8 @@ export default function OrderPage() {
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const [updateOrderToPaidMutation, { isLoading: updateOrderToPaidLoading }] =
     useUpdateOrderToPaidMutation();
+  const [updateOrderToDeliverMutation, { isLoading: updateOrderToDeliverLoading }] =
+    useUpdateOrderToDeliverMutation();
 
   useEffect(() => {
     if (!payPalClientIdQueryError && !payPalClientIdQueryLoading && payPalClientId) {
@@ -106,6 +109,20 @@ export default function OrderPage() {
     toast.error(err?.message, { position: "top-center" });
   };
 
+  const deliverOrderHandler = async () => {
+    try {
+      await updateOrderToDeliverMutation({ orderId });
+      orderQueryRefetch();
+      toast.success("Order has been delivered", {
+        onClick: () => navigate("/admin/order-list"),
+        position: "top-center",
+        style: { cursor: "pointer" },
+      });
+    } catch (err: any) {
+      toast.error(err?.data?.message || err.error, { position: "top-center" });
+    }
+  };
+
   return (
     <Fragment>
       {orderQueryLoading ? (
@@ -121,21 +138,33 @@ export default function OrderPage() {
             <Card>
               <ListGroup variant="flush">
                 <OrderSummary order={order} />
-                {!order?.isPaid && (
-                  <ListGroup.Item className="text-center">
+                {!order?.isPaid && userInfo?.email === "admin@gmail.com" && (
+                  <ListGroup.Item>
                     {isPending ? (
                       <Loader />
                     ) : (
-                      <Fragment>
-                        <TestPaymentButton
-                          onApproveTest={onApproveTest}
-                          updateOrderToPaidLoading={updateOrderToPaidLoading}
-                        />
-                        {userInfo?.isAdmin && (
-                          <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError} />
-                        )}
-                      </Fragment>
+                      <PayPalButtons
+                        createOrder={createOrder}
+                        onApprove={onApprove}
+                        onError={onError}
+                      />
                     )}
+                  </ListGroup.Item>
+                )}
+                {!order?.isPaid && (
+                  <ListGroup.Item>
+                    <TestPaymentButton
+                      onApproveTest={onApproveTest}
+                      updateOrderToPaidLoading={updateOrderToPaidLoading}
+                    />
+                  </ListGroup.Item>
+                )}
+                {userInfo && userInfo.isAdmin && order?.isPaid && !order?.isDelivered && (
+                  <ListGroup.Item>
+                    <MarkAsDeliveredButton
+                      isLoading={updateOrderToDeliverLoading}
+                      onDeliverOrder={deliverOrderHandler}
+                    />
                   </ListGroup.Item>
                 )}
               </ListGroup>
@@ -269,6 +298,20 @@ const TestPaymentButton: FC<PaymentButtonsProps> = ({
     <Button variant="success" className="text-white mb-2 w-100" onClick={onApproveTest}>
       PAY ORDER
       {updateOrderToPaidLoading && <Loader size="sm" />}
+    </Button>
+  );
+};
+
+interface MarkAsDeliveredButtonProps {
+  isLoading: boolean;
+  onDeliverOrder: () => void;
+}
+
+const MarkAsDeliveredButton = ({ isLoading, onDeliverOrder }: MarkAsDeliveredButtonProps) => {
+  return (
+    <Button className="w-100 text-white" variant="warning" onClick={onDeliverOrder}>
+      Mark as Delivered
+      {isLoading && <Loader size="sm" />}
     </Button>
   );
 };

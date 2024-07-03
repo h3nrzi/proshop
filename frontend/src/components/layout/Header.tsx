@@ -49,6 +49,7 @@ export default function Header() {
             <div className="d-md-none m-3"></div>
             <div className="flex-grow-1"></div>
             <Nav className="d-md-flex gap-2">
+              {userInfo && userInfo.isAdmin && <AdminDropdown />}
               {userInfo ? (
                 <ProfileDropdown onLogout={logoutHandler} userInfo={userInfo} />
               ) : (
@@ -89,6 +90,27 @@ const ProfileDropdown = ({ userInfo, onLogout }: { userInfo: UserInfo; onLogout(
           Profile
         </Link>
         <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
+
+const AdminDropdown = () => {
+  return (
+    <Dropdown>
+      <Dropdown.Toggle id="dropdown-custom-components" size="sm" variant="secondary" className="text-white">
+        <MdAdminPanelSettings size={30} />
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Link to="/admin/product-list" className="dropdown-item">
+          Products
+        </Link>
+        <Link to="/admin/user-list" className="dropdown-item">
+          Users
+        </Link>
+        <Link to="/admin/order-list" className="dropdown-item">
+          Orders
+        </Link>
       </Dropdown.Menu>
     </Dropdown>
   );

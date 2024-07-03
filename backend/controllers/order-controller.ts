@@ -10,7 +10,10 @@ export interface CustomRequest extends Request {
 // @desc    Get All Orders
 // @route   GET /api/orders
 // @access  Admin
-export const getAllOrders: RequestHandler = async (req, res, next) => {};
+export const getAllOrders: RequestHandler = async (req, res, next) => {
+  const orders = await Order.find({}).populate("user", "_id name");
+  res.status(200).send(orders);
+};
 
 // @desc    Get Order by ID
 // @route   GET /api/orders/:id
@@ -89,4 +92,17 @@ export const updateOrderToPaid: RequestHandler = async (req, res, next) => {
 // @desc    Update order to delivered
 // @route   PATCH /api/orders/:id/deliver
 // @access  Admin
-export const updateOrderToDeliver: RequestHandler = async (req, res, next) => {};
+export const updateOrderToDeliver: RequestHandler = async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    res.status(404);
+    throw new Error("Order not found");
+  }
+
+  order.isDelivered = true;
+  order.deliveredAt = Date.now();
+  const updatedOrder = await order.save();
+
+  res.status(200).send(updatedOrder);
+};

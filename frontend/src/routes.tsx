@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import AdminLayout from "./layout/AdminLayout";
 import AppLayout from "./layout/AppLayout";
 import PrivateLayout from "./layout/PrivateLayout";
 import CartPage from "./pages/CartPage";
@@ -11,6 +12,7 @@ import ProductPage from "./pages/ProductPage";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 import ShippingPage from "./pages/ShippingPage";
+import OrderListPage from "./pages/admin/OrderListPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,12 @@ const router = createBrowserRouter([
           { path: "placeorder", element: <PlaceOrderPage /> },
           { path: "order/:id", element: <OrderPage /> },
           { path: "/profile", element: <ProfilePage /> },
+
+          {
+            path: "admin",
+            element: <AdminLayout />,
+            children: [{ path: "order-list", element: <OrderListPage /> }],
+          },
         ],
       },
     ],
