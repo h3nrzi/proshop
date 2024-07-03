@@ -3,21 +3,21 @@ import Cart from "../types/Cart";
 import Order from "../types/Order";
 import { ORDER_URL, PAYPAL_URL } from "../utils/constants";
 
-interface RequestData {
+interface Req {
   GetOrder: { orderId?: string };
   CreateOrder: Cart;
   UpdateOrderToPaid: { orderId?: string; details: any };
-  // UpdateOrderToDeliver: string;
+  UpdateOrderToDeliver: { orderId?: string };
 }
 
-interface ResponseData {
-  // GetOrders: Order[];
+interface Res {
+  GetAllOrders: Order[];
   GetOrder: Order;
   GetPayPalClientId: { clientId: string };
   GetMyOrders: Order[];
   CreateOrder: Order;
   UpdateOrderToPaid: Order;
-  // UpdateOrderToDeliver: Order;
+  UpdateOrderToDeliver: Order;
 }
 
 const orderApi = apiSlice.injectEndpoints({
@@ -28,18 +28,18 @@ const orderApi = apiSlice.injectEndpoints({
       query: ({ orderId }) => ({ url: `${ORDER_URL}/${orderId}` }),
     }),
 
-    getMyOrders: builder.query<ResponseData["GetMyOrders"], void>({
+    getMyOrders: builder.query<Res["GetMyOrders"], void>({
       query: () => ({ url: `${ORDER_URL}/myorders` }),
       providesTags: ["MyOrders"],
     }),
 
-    getPayPalClientId: builder.query<ResponseData["GetPayPalClientId"], void>({
+    getPayPalClientId: builder.query<Res["GetPayPalClientId"], void>({
       query: () => ({ url: PAYPAL_URL }),
     }),
 
     // Mutations
 
-    createOrder: builder.mutation<ResponseData["CreateOrder"], RequestData["CreateOrder"]>({
+    createOrder: builder.mutation<Res["CreateOrder"], Req["CreateOrder"]>({
       query: (data) => ({
         url: ORDER_URL,
         method: "POST",
@@ -48,9 +48,9 @@ const orderApi = apiSlice.injectEndpoints({
       invalidatesTags: ["Orders", "MyOrders"],
     }),
 
-    updateOrderToPaid: builder.mutation<ResponseData["UpdateOrderToPaid"], RequestData["UpdateOrderToPaid"]>({
+    updateOrderToPaid: builder.mutation<Res["UpdateOrderToPaid"], Req["UpdateOrderToPaid"]>({
       query: ({ orderId, details }) => ({
-        url: ORDER_URL + "/" + orderId + "/pay",
+        url: `${ORDER_URL}/${orderId}/pay`,
         method: "PATCH",
         body: details,
       }),

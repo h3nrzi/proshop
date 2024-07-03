@@ -24,10 +24,12 @@ const LoginPage = () => {
 
   const searchParams = new URLSearchParams(search);
   const redirect = searchParams.get("redirect") || "/";
+  const isprivate = Boolean(searchParams.get("isprivate"));
 
   useEffect(() => {
+    if (!userInfo && isprivate) toast.warn("Please login first!", { position: "top-center" });
     if (userInfo) navigate(redirect);
-  }, [userInfo, redirect, navigate]);
+  }, [userInfo, redirect, navigate, isprivate]);
 
   const submitHandler = async (data: FormData) => {
     try {

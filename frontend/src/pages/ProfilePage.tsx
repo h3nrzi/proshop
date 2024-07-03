@@ -125,15 +125,15 @@ interface OrdersTableProps {
 
 const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
   return (
-    <Table responsive="md" className="text-nowrap">
+    <Table responsive="lg" className="text-nowrap">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>DATE</th>
-          <th>TOTAL PRICE</th>
-          <th>PAID</th>
-          <th>DELIVERED</th>
-          <th></th>
+          <th className="px-5 px-lg-0">ID</th>
+          <th className="px-5 px-lg-0">DATE</th>
+          <th className="px-5 px-lg-0">TOTAL PRICE</th>
+          <th className="px-5 px-lg-0">PAID</th>
+          <th className="px-5 px-lg-0">DELIVERED</th>
+          <th className="px-5 px-lg-0"></th>
         </tr>
       </thead>
       <tbody>

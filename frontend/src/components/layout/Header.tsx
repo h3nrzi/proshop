@@ -1,5 +1,6 @@
 import { Badge, Container, Dropdown, Image, Nav, Navbar } from "react-bootstrap";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaRegUserCircle, FaShoppingCart, FaUser } from "react-icons/fa";
+import { MdAdminPanelSettings } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -40,18 +41,13 @@ export default function Header() {
               ProShop
             </Navbar.Brand>
           </Link>
-
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
           <div className="d-block d-md-none ms-3">
             <ThemeSwitch />
           </div>
-
           <Navbar.Collapse id="basic-navbar-nav">
             <div className="d-md-none m-3"></div>
-
             <div className="flex-grow-1"></div>
-
             <Nav className="d-md-flex gap-2">
               {userInfo ? (
                 <ProfileDropdown onLogout={logoutHandler} userInfo={userInfo} />
@@ -62,7 +58,6 @@ export default function Header() {
                   </Nav.Link>
                 </Link>
               )}
-
               <Link to="/cart" className="text-decoration-none">
                 <Nav.Link as="span">
                   {orderItems.length > 0 && (
@@ -71,7 +66,6 @@ export default function Header() {
                   <FaShoppingCart /> Cart
                 </Nav.Link>
               </Link>
-
               <div className="d-none d-md-block ms-3">
                 <ThemeSwitch />
               </div>
@@ -86,14 +80,9 @@ export default function Header() {
 const ProfileDropdown = ({ userInfo, onLogout }: { userInfo: UserInfo; onLogout(): void }) => {
   return (
     <Dropdown>
-      <Dropdown.Toggle
-        id="dropdown-custom-components"
-        size="sm"
-        variant="secondary"
-        style={{ width: "60px", paddingRight: "20px", color: "#fff" }}>
-        <Image src="/images/profile.webp" roundedCircle fluid />
+      <Dropdown.Toggle id="dropdown-custom-components" size="sm" variant="secondary" className="text-white">
+        <FaRegUserCircle size={30} />
       </Dropdown.Toggle>
-
       <Dropdown.Menu>
         <Dropdown.Header>{userInfo.email}</Dropdown.Header>
         <Link to="/profile" className="dropdown-item">

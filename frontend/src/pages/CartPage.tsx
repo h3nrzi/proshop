@@ -26,7 +26,7 @@ const CartPage = () => {
   };
 
   const checkoutHandler = () => {
-    navigate("/login?redirect=/shipping");
+    navigate("/login?isprivate=true&redirect=/shipping");
   };
 
   return (

@@ -11,7 +11,11 @@ import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useGetOrderQuery, useGetPayPalClientIdQuery, useUpdateOrderToPaidMutation } from "../api/orders-api";
+import {
+  useGetOrderQuery,
+  useGetPayPalClientIdQuery,
+  useUpdateOrderToPaidMutation,
+} from "../api/orders-api";
 import Loader from "../components/common/Loader";
 import Message from "../components/common/Message";
 import { RootState } from "../store";
@@ -34,7 +38,8 @@ export default function OrderPage() {
     error: payPalClientIdQueryError,
   } = useGetPayPalClientIdQuery();
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
-  const [updateOrderToPaidMutation, { isLoading: updateOrderToPaidLoading }] = useUpdateOrderToPaidMutation();
+  const [updateOrderToPaidMutation, { isLoading: updateOrderToPaidLoading }] =
+    useUpdateOrderToPaidMutation();
 
   useEffect(() => {
     if (!payPalClientIdQueryError && !payPalClientIdQueryLoading && payPalClientId) {
@@ -126,7 +131,9 @@ export default function OrderPage() {
                           onApproveTest={onApproveTest}
                           updateOrderToPaidLoading={updateOrderToPaidLoading}
                         />
-                        <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError} />
+                        {userInfo?.isAdmin && (
+                          <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError} />
+                        )}
                       </Fragment>
                     )}
                   </ListGroup.Item>
@@ -159,8 +166,8 @@ const OrderDetails: FC<OrderDetailsProps> = ({ order }) => {
         </p>
         <p>
           <strong className="me-1">Address:</strong>
-          {order?.shippingAddress.address}, {order?.shippingAddress.city},{order?.shippingAddress.postalCode},{" "}
-          {order?.shippingAddress.country}
+          {order?.shippingAddress.address}, {order?.shippingAddress.city},
+          {order?.shippingAddress.postalCode}, {order?.shippingAddress.country}
         </p>
         <p>
           <strong className="me-1">Order at:</strong>
@@ -199,7 +206,9 @@ const OrderDetails: FC<OrderDetailsProps> = ({ order }) => {
                 <Link to={`/product/${item.product}`}>{item.name}</Link>
               </Col>
               <Col className="text-md-end">
-                {item.qty > 1 ? `${item.qty} X $${item.price} = $${item.qty * item.price}` : `$${item.price}`}
+                {item.qty > 1
+                  ? `${item.qty} X $${item.price} = $${item.qty * item.price}`
+                  : `$${item.price}`}
               </Col>
             </Row>
           </ListGroup>
@@ -252,10 +261,13 @@ interface PaymentButtonsProps {
   updateOrderToPaidLoading: boolean;
 }
 
-const TestPaymentButton: FC<PaymentButtonsProps> = ({ onApproveTest, updateOrderToPaidLoading }) => {
+const TestPaymentButton: FC<PaymentButtonsProps> = ({
+  onApproveTest,
+  updateOrderToPaidLoading,
+}) => {
   return (
     <Button variant="success" className="text-white mb-2 w-100" onClick={onApproveTest}>
-      Test Pay Order
+      PAY ORDER
       {updateOrderToPaidLoading && <Loader size="sm" />}
     </Button>
   );
