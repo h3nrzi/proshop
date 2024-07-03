@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCreateOrderMutation } from "../api/orders-api";
-import { resetOrderItems } from "../app/cart-slice";
+import { resetCart } from "../app/cart-slice";
 import CheckoutSteps from "../components/common/CheckoutSteps";
 import Message from "../components/common/Message";
 import { RootState } from "../store";
@@ -28,7 +28,7 @@ export default function PlaceOrderPage() {
   const placeOrderHandler = async () => {
     try {
       const res = await createOrder(cart).unwrap();
-      dispatch(resetOrderItems());
+      dispatch(resetCart());
       navigate(`/order/${res._id}`);
     } catch (err: any) {
       if (err) toast.error(err?.data?.message || err.error, { position: "top-center" });
@@ -66,7 +66,7 @@ const ShippingInfo = ({ shippingAddress }: ShippingInfoProps) => (
   <ListGroup.Item>
     <h2>Shipping</h2>
     <p>
-      <strong className="me-1 fs-5">Address:</strong>
+      <strong className="me-1">Address:</strong>
       {shippingAddress?.address}, {shippingAddress?.city}, {shippingAddress?.postalCode},{" "}
       {shippingAddress?.country}
     </p>
@@ -81,7 +81,7 @@ const PaymentInfo = ({ paymentMethod }: PaymentInfoProps) => (
   <ListGroup.Item>
     <h2>Payment Method</h2>
     <p>
-      <strong className="me-1 fs-5">Method:</strong>
+      <strong className="me-1">Method:</strong>
       {paymentMethod}
     </p>
   </ListGroup.Item>
@@ -153,7 +153,7 @@ const OrderSummary = ({ cart, onPlaceOrder, createOrderLoading }: OrderSummaryPr
         </Row>
       </ListGroup.Item>
       <ListGroup.Item className="text-center">
-        <Button className="text-white w-75" disabled={cart.orderItems.length === 0} onClick={onPlaceOrder}>
+        <Button className="text-white w-100" disabled={cart.orderItems.length === 0} onClick={onPlaceOrder}>
           Place Order
           {createOrderLoading && <Spinner size="sm" className="ms-2" />}
         </Button>

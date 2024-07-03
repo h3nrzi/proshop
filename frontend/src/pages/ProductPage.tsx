@@ -47,9 +47,6 @@ const ProductPage = () => {
 
   return (
     <Fragment>
-      <Link to="/" className="btn btn-primary my-3 text-decoration-none">
-        Go Back
-      </Link>
       {productQueryLoading ? (
         <ProductDetailPlaceholder />
       ) : productQueryError ? (

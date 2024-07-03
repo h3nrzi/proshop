@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Alert } from "react-bootstrap";
 
 interface Props {
-  variant: "info" | "danger";
+  variant: "info" | "danger" | "success";
   children: React.ReactNode;
 }
 

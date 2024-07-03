@@ -17,7 +17,12 @@ type FormData = {
 };
 
 const ShippingPage = () => {
-  const { register, handleSubmit, setValue } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormData>();
   const { orderItems, shippingAddress } = useSelector((s: RootState) => s.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,19 +52,39 @@ const ShippingPage = () => {
         <Stack direction="vertical" gap={3}>
           <Form.Group controlId="address">
             <Form.Label>Address</Form.Label>
-            <Form.Control type="text" placeholder="Enter your address..." {...register("address")} />
+            <Form.Control
+              type="text"
+              placeholder="Enter your address..."
+              {...register("address", { required: true })}
+            />
+            {errors.address && <span className="text-danger">Address is required</span>}
           </Form.Group>
           <Form.Group controlId="city">
             <Form.Label>City</Form.Label>
-            <Form.Control type="text" placeholder="Enter your city..." {...register("city")} />
+            <Form.Control
+              type="text"
+              placeholder="Enter your city..."
+              {...register("city", { required: true })}
+            />
+            {errors.city && <span className="text-danger">City is required</span>}
           </Form.Group>
           <Form.Group controlId="postalCode">
             <Form.Label>Postal Code</Form.Label>
-            <Form.Control type="text" placeholder="Enter your postal code..." {...register("postalCode")} />
+            <Form.Control
+              type="text"
+              placeholder="Enter your postal code..."
+              {...register("postalCode", { required: true })}
+            />
+            {errors.postalCode && <span className="text-danger">Postal code is required</span>}
           </Form.Group>
           <Form.Group controlId="country">
             <Form.Label>Country</Form.Label>
-            <Form.Control type="text" placeholder="Enter your country..." {...register("country")} />
+            <Form.Control
+              type="text"
+              placeholder="Enter your country..."
+              {...register("country", { required: true })}
+            />
+            {errors.country && <span className="text-danger">Country code is required</span>}
           </Form.Group>
           <Button type="submit" variant="primary" className="w-25">
             Continue

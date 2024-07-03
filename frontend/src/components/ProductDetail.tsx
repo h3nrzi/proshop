@@ -14,7 +14,7 @@ const ProductDetail: FC<Props> = ({ product, onAddToCart }) => {
   return (
     <Row className="gap-5 gap-md-0">
       <Col md={5}>
-        <Image src={product.image} alt={product.name} fluid />
+        <Image src={product.image} alt={product.name} fluid thumbnail />
       </Col>
 
       <Col md={4}>
@@ -69,7 +69,10 @@ const ProductDetail: FC<Props> = ({ product, onAddToCart }) => {
             )}
 
             <ListGroup.Item className="text-center">
-              <Button disabled={product.countInStock === 0} className="px-3" onClick={() => onAddToCart(qty)}>
+              <Button
+                disabled={product.countInStock === 0}
+                className="w-100"
+                onClick={() => onAddToCart(qty)}>
                 Add To Cart
               </Button>
             </ListGroup.Item>

@@ -7,10 +7,10 @@ const router = express.Router();
 ////////// Private
 router.use(catchAsync(auth.protect));
 
-router.post("/", catchAsync(orderController.createOrder));
-router.get("/:id", catchAsync(orderController.getOrder));
 router.get("/myorders", catchAsync(orderController.getMyOrders));
 router.patch("/:id/pay", catchAsync(orderController.updateOrderToPaid));
+router.post("/", catchAsync(orderController.createOrder));
+router.get("/:id", catchAsync(orderController.getOrder));
 
 ////////// Admin
 router.use(catchAsync(auth.admin));

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Product from "../types/Product";
 import Rating from "./common/Rating";
@@ -12,7 +12,7 @@ const ProductCard: FC<Props> = ({ product }) => {
   return (
     <Card className="my-3 p-3 rounded">
       <Link to={`product/${product._id}`} className=" text-decoration-none">
-        <Card.Img src={product.image} variant="top" />
+        <Image src={product.image} fluid thumbnail />
         <Card.Body>
           <Card.Title as="div">
             <strong>{product.name}</strong>
