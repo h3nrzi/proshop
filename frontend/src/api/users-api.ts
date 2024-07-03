@@ -6,12 +6,13 @@ interface ResponseData {
   Login: UserInfo;
   Register: UserInfo;
   Logout: { message: string };
+  UpdateProfile: UserInfo;
 }
 
 interface RequestData {
   Register: { name: string; email: string; password: string };
   Login: { email: string; password: string };
-  UpdateProfile: UserInfo;
+  UpdateProfile: { name: string; email: string; password: string };
 }
 
 const usersApi = apiSlice.injectEndpoints({
@@ -38,7 +39,16 @@ const usersApi = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
+
+    updateProfile: builder.mutation<ResponseData["UpdateProfile"], RequestData["UpdateProfile"]>({
+      query: (data) => ({
+        url: `${USERS_URL}/profile`,
+        method: "PATCH",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useLogoutMutation } = usersApi;
+export const { useRegisterMutation, useLoginMutation, useLogoutMutation, useUpdateProfileMutation } =
+  usersApi;

@@ -5,7 +5,7 @@ const baseQuery = fetchBaseQuery({ baseUrl: BASE_URL });
 
 const apiSlice = createApi({
   baseQuery,
-  tagTypes: ["Products", "Orders", "Users"] as const,
+  tagTypes: ["Products", "Orders", "MyOrders", "Users"] as const,
   endpoints: () => ({}),
   refetchOnFocus: false, // Refetch data when the window regains focus
   refetchOnReconnect: false, // Refetch data when the network connection is reestablished

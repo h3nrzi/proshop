@@ -33,9 +33,9 @@ interface Order {
   shippingPrice: number;
   totalPrice: number;
   isPaid: boolean;
-  paidAt?: Date;
+  paidAt?: number;
   isDelivered: boolean;
-  deliveredAt?: Date;
+  deliveredAt?: number;
 }
 
 const orderItemSchema = new Schema<OrderItem>({

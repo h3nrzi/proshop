@@ -1,22 +1,22 @@
 import apiSlice from "../store/api-slice";
 import Cart from "../types/Cart";
 import Order from "../types/Order";
-import { ORDER_URL } from "../utils/constants";
+import { ORDER_URL, PAYPAL_URL } from "../utils/constants";
 
 interface RequestData {
-  GetOrder: { orderId: string };
+  GetOrder: { orderId?: string };
   CreateOrder: Cart;
-  // UpdateOrderToPaid: { orderId: string; details: any };
+  UpdateOrderToPaid: { orderId?: string; details: any };
   // UpdateOrderToDeliver: string;
 }
 
 interface ResponseData {
   // GetOrders: Order[];
   GetOrder: Order;
-  // GetPayPalClientId: { clientId: string };
+  GetPayPalClientId: { clientId: string };
   GetMyOrders: Order[];
   CreateOrder: Order;
-  // UpdateOrderToPaid: Order;
+  UpdateOrderToPaid: Order;
   // UpdateOrderToDeliver: Order;
 }
 
@@ -30,6 +30,11 @@ const orderApi = apiSlice.injectEndpoints({
 
     getMyOrders: builder.query<ResponseData["GetMyOrders"], void>({
       query: () => ({ url: `${ORDER_URL}/myorders` }),
+      providesTags: ["MyOrders"],
+    }),
+
+    getPayPalClientId: builder.query<ResponseData["GetPayPalClientId"], void>({
+      query: () => ({ url: PAYPAL_URL }),
     }),
 
     // Mutations
@@ -40,8 +45,24 @@ const orderApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Orders", "MyOrders"],
+    }),
+
+    updateOrderToPaid: builder.mutation<ResponseData["UpdateOrderToPaid"], RequestData["UpdateOrderToPaid"]>({
+      query: ({ orderId, details }) => ({
+        url: ORDER_URL + "/" + orderId + "/pay",
+        method: "PATCH",
+        body: details,
+      }),
+      invalidatesTags: ["Orders", "MyOrders"],
     }),
   }),
 });
 
-export const { useGetOrderQuery, useGetMyOrdersQuery, useCreateOrderMutation } = orderApi;
+export const {
+  useGetOrderQuery,
+  useGetMyOrdersQuery,
+  useCreateOrderMutation,
+  useGetPayPalClientIdQuery,
+  useUpdateOrderToPaidMutation,
+} = orderApi;

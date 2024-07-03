@@ -1,5 +1,6 @@
 import { Request, RequestHandler } from "express";
 import CreateOrder from "../dtos/Order/CreateOrder";
+import UpdateOrderToPaid from "../dtos/Order/UpdateOrderToPaid";
 import Order from "../models/order";
 
 export interface CustomRequest extends Request {
@@ -68,7 +69,22 @@ export const getMyOrders: RequestHandler = async (req: CustomRequest, res, next)
 // @desc    Update order to paid
 // @route   PATCH /api/orders/:id/pay
 // @access  Private
-export const updateOrderToPaid: RequestHandler = async (req, res, next) => {};
+export const updateOrderToPaid: RequestHandler = async (req, res, next) => {
+  const { id, status, update_time, payer } = req.body as UpdateOrderToPaid;
+
+  const order = await Order.findById(req.params.id);
+  if (!order) {
+    res.status(404);
+    throw new Error("Order not found!");
+  }
+
+  order.isPaid = true;
+  order.paidAt = Date.now();
+  order.paymentResult = { id, status, update_time, payer };
+  await order.save();
+
+  return res.status(200).json(order);
+};
 
 // @desc    Update order to delivered
 // @route   PATCH /api/orders/:id/deliver
