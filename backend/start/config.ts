@@ -1,11 +1,11 @@
 import cookieParser from "cookie-parser";
 import express, { Express } from "express";
 import morgan from "morgan";
-// import cors from "cors";
-import cookieParser from "cookie-parser";
+import path from "path";
 
 module.exports = (app: Express) => {
   const { NODE_ENV } = process.env;
+  const rootDir = path.resolve();
 
   // Body Parser
   app.use(express.json());
@@ -17,6 +17,6 @@ module.exports = (app: Express) => {
   // Logging Request
   if (NODE_ENV === "development") app.use(morgan("dev"));
 
-  // CORS Origin Request
-  // app.use(cors());
+  // Serve Upload Directory
+  app.use("/uploads", express.static(path.join(rootDir, "/uploads")));
 };

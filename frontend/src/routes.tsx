@@ -13,6 +13,9 @@ import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 import ShippingPage from "./pages/ShippingPage";
 import OrderListPage from "./pages/admin/OrderListPage";
+import ProductListPage from "./pages/admin/ProductListPage";
+import ProductNewPage from "./pages/admin/ProductNewPage";
+import ProductEditPage from "./pages/admin/ProductEditPage";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +41,12 @@ const router = createBrowserRouter([
           {
             path: "admin",
             element: <AdminLayout />,
-            children: [{ path: "order-list", element: <OrderListPage /> }],
+            children: [
+              { path: "order-list", element: <OrderListPage /> },
+              { path: "product-list", element: <ProductListPage /> },
+              { path: "product/new", element: <ProductNewPage /> },
+              { path: "product/:id/edit", element: <ProductEditPage /> },
+            ],
           },
         ],
       },
