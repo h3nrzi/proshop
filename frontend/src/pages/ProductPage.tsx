@@ -22,7 +22,7 @@ const ProductPage = () => {
     data: product,
     isLoading: productQueryLoading,
     error: productQueryError,
-  } = useGetProductQuery({ productId: productId! });
+  } = useGetProductQuery({ productId });
 
   function addToCartHandler(qty: number) {
     if (existingCartItem && existingCartItem.qty === qty)

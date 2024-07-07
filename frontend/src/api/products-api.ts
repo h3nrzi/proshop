@@ -2,21 +2,24 @@ import apiSlice from "../store/api-slice";
 import Product from "../types/Product";
 import { PRODUCT_URL } from "../utils/constants";
 
-interface Response {
+interface Req {
+  GetOne: { productId: string };
+}
+interface Res {
   GetAll: Product[];
   GetOne: Product;
 }
 
 const productsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAllProducts: builder.query<Response["GetAll"], void>({
+    getAllProducts: builder.query<Res["GetAll"], void>({
       query: () => ({
         url: PRODUCT_URL,
       }),
       providesTags: ["Products"],
     }),
 
-    getProduct: builder.query<Response["GetOne"], { productId: string }>({
+    getProduct: builder.query<Res["GetOne"], Req["GetOne"]>({
       query: ({ productId }) => ({
         url: `${PRODUCT_URL}/${productId}`,
       }),

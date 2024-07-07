@@ -1,9 +1,12 @@
+import cookieParser from "cookie-parser";
 import express, { Express } from "express";
 import morgan from "morgan";
 // import cors from "cors";
 import cookieParser from "cookie-parser";
 
 module.exports = (app: Express) => {
+  const { NODE_ENV } = process.env;
+
   // Body Parser
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
@@ -12,7 +15,7 @@ module.exports = (app: Express) => {
   app.use(cookieParser());
 
   // Logging Request
-  if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
+  if (NODE_ENV === "development") app.use(morgan("dev"));
 
   // CORS Origin Request
   // app.use(cors());

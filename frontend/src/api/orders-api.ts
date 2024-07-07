@@ -70,6 +70,7 @@ const orderApi = apiSlice.injectEndpoints({
         url: `${ORDER_URL}/${orderId}/deliver`,
         method: "PATCH",
       }),
+      invalidatesTags: ["Orders", "MyOrders"],
     }),
   }),
 });

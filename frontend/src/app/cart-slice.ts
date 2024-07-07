@@ -25,7 +25,9 @@ const cartSlice = createSlice({
       const existingItem = cart.orderItems.find((item) => item._id === newItem._id);
 
       if (existingItem) {
-        cart.orderItems = cart.orderItems.map((item) => (item._id === newItem._id ? newItem : item));
+        cart.orderItems = cart.orderItems.map((item) =>
+          item._id === newItem._id ? newItem : item
+        );
       } else {
         cart.orderItems.push(newItem);
       }

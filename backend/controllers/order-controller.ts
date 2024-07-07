@@ -11,7 +11,7 @@ export interface CustomRequest extends Request {
 // @route   GET /api/orders
 // @access  Admin
 export const getAllOrders: RequestHandler = async (req, res, next) => {
-  const orders = await Order.find({}).populate("user", "_id name");
+  const orders = await Order.find({}).populate("user", "_id name email");
   res.status(200).send(orders);
 };
 
@@ -33,8 +33,15 @@ export const getOrder: RequestHandler = async (req, res, next) => {
 // @route   POST /api/orders
 // @access  Private
 export const createOrder: RequestHandler = async (req: CustomRequest, res, next) => {
-  const { orderItems, itemsPrice, paymentMethod, shippingAddress, shippingPrice, taxPrice, totalPrice } =
-    req.body as CreateOrder;
+  const {
+    orderItems,
+    itemsPrice,
+    paymentMethod,
+    shippingAddress,
+    shippingPrice,
+    taxPrice,
+    totalPrice,
+  } = req.body as CreateOrder;
 
   if (!orderItems || orderItems.length === 0) {
     res.status(404);
