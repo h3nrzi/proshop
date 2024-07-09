@@ -9,6 +9,7 @@ interface Req {
   Update: { productId?: string; data: Product };
   Delete: { productId?: string };
   UploadImage: FormData;
+  CreateReview: { comment: string; rating: number; productId?: string };
 }
 interface Res {
   GetAll: Product[];
@@ -17,6 +18,7 @@ interface Res {
   Update: Product;
   Delete: { message: string };
   UploadImage: { message: string; image: string };
+  CreateReview: { message: string };
 }
 
 const productsApi = apiSlice.injectEndpoints({
@@ -73,6 +75,15 @@ const productsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Products"],
     }),
+
+    createProductReview: builder.mutation<Res["CreateReview"], Req["CreateReview"]>({
+      query: ({ comment, rating, productId }) => ({
+        url: `${PRODUCT_URL}/${productId}/review`,
+        method: "POST",
+        body: { comment, rating, productId },
+      }),
+      invalidatesTags: ["Products"],
+    }),
   }),
 });
 
@@ -83,5 +94,6 @@ export const {
   useUpdateProductMutation,
   useUploadProductImageMutation,
   useDeleteProductMutation,
+  useCreateProductReviewMutation,
 } = productsApi;
 export default productsApi;

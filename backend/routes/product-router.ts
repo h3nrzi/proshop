@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createProduct,
+  createProductReview,
   deleteProduct,
   getAllProducts,
   getProduct,
@@ -15,6 +16,7 @@ router.get("/:id", catchAsync(getProduct));
 
 /////////////////// Private
 router.use(catchAsync(auth.protect));
+router.post("/:id/review", catchAsync(createProductReview));
 
 /////////////////// Admin
 router.use(catchAsync(auth.admin));
