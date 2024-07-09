@@ -12,20 +12,15 @@ router.post("/logout", catchAsync(authController.logout));
 /////////////////// Private
 router.use(catchAsync(auth.protect));
 
-router
-  .route("/profile")
-  .get(catchAsync(userController.getUserProfile))
-  .patch(catchAsync(userController.updateUserProfile));
+router.get("/profile", catchAsync(userController.getUserProfile));
+router.patch("/profile", catchAsync(userController.getUserProfile));
 
 /////////////////// Admin
 router.use(catchAsync(auth.admin));
 
 router.get("/", catchAsync(userController.getAllUsers));
-
-router
-  .route("/:id")
-  .get(catchAsync(userController.getUser))
-  .patch(catchAsync(userController.updateUser))
-  .delete(catchAsync(userController.deleteUser));
+router.get("/:id", catchAsync(userController.getUser));
+router.patch("/:id", catchAsync(userController.updateUser));
+router.delete("/:id", catchAsync(userController.deleteUser));
 
 export default router;

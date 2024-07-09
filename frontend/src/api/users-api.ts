@@ -2,18 +2,19 @@ import apiSlice from "../store/api-slice";
 import { UserInfo } from "../types/Auth";
 import { USERS_URL } from "../utils/constants";
 
-interface ResponseData {
+interface Req {
+  Register: { name: string; email: string; password: string };
+  Login: { email: string; password: string };
+  UpdateProfile: { name: string; email: string; password: string };
+}
+
+interface Res {
   Login: UserInfo;
   Register: UserInfo;
   Logout: { message: string };
   UpdateProfile: UserInfo;
 }
 
-interface RequestData {
-  Register: { name: string; email: string; password: string };
-  Login: { email: string; password: string };
-  UpdateProfile: { name: string; email: string; password: string };
-}
 
 const usersApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -25,7 +26,7 @@ const usersApi = apiSlice.injectEndpoints({
       }),
     }),
 
-    login: builder.mutation<ResponseData["Login"], RequestData["Login"]>({
+    login: builder.mutation<Res["Login"], Req["Login"]>({
       query: (data) => ({
         url: `${USERS_URL}/auth`,
         method: "POST",
@@ -33,14 +34,14 @@ const usersApi = apiSlice.injectEndpoints({
       }),
     }),
 
-    logout: builder.mutation<ResponseData["Logout"], void>({
+    logout: builder.mutation<Res["Logout"], void>({
       query: () => ({
         url: `${USERS_URL}/logout`,
         method: "POST",
       }),
     }),
 
-    updateProfile: builder.mutation<ResponseData["UpdateProfile"], RequestData["UpdateProfile"]>({
+    updateProfile: builder.mutation<Res["UpdateProfile"], Req["UpdateProfile"]>({
       query: (data) => ({
         url: `${USERS_URL}/profile`,
         method: "PATCH",
@@ -50,5 +51,9 @@ const usersApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useLogoutMutation, useUpdateProfileMutation } =
-  usersApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useLogoutMutation,
+  useUpdateProfileMutation,
+} = usersApi;
