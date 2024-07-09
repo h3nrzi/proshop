@@ -13,9 +13,11 @@ import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 import ShippingPage from "./pages/ShippingPage";
 import OrderListPage from "./pages/admin/OrderListPage";
+import ProductEditPage from "./pages/admin/ProductEditPage";
 import ProductListPage from "./pages/admin/ProductListPage";
 import ProductNewPage from "./pages/admin/ProductNewPage";
-import ProductEditPage from "./pages/admin/ProductEditPage";
+import UserEditPage from "./pages/admin/UserEditPage";
+import UserListPage from "./pages/admin/UserListPage";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,8 @@ const router = createBrowserRouter([
               { path: "product-list", element: <ProductListPage /> },
               { path: "product/new", element: <ProductNewPage /> },
               { path: "product/:id/edit", element: <ProductEditPage /> },
+              { path: "user-list", element: <UserListPage /> },
+              { path: "user/:id/edit", element: <UserEditPage /> },
             ],
           },
         ],
