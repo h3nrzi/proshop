@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useGetProductQuery } from "../api/products-api";
 import { addToCart } from "../app/cart-slice";
@@ -10,14 +10,12 @@ import ProductDetailPlaceholder from "../components/ProductDetailSkeleton";
 import { RootState } from "../store";
 import getErrorMessage from "../utils/getErrorMessage";
 
-const ProductPage = () => {
+export default function ProductPage() {
   const { id: productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { orderItems } = useSelector((state: RootState) => state.cart);
+  const orderItems = useSelector((state: RootState) => state.cart.orderItems);
   const existingCartItem = orderItems.find((item) => item._id === productId);
-
   const {
     data: product,
     isLoading: productQueryLoading,
@@ -56,6 +54,4 @@ const ProductPage = () => {
       )}
     </Fragment>
   );
-};
-
-export default ProductPage;
+}

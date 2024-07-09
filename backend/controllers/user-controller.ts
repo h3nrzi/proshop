@@ -74,7 +74,7 @@ export const deleteUser: RequestHandler = async (req, res, next) => {
   await Order.deleteMany({ user: user._id });
   await User.deleteOne({ _id: user._id });
 
-  res.status(200).json({ message: "User and related orders deleted successfully" });
+  res.status(200).json({ message: "User deleted successfully" });
 };
 
 // @desc    Get user profile

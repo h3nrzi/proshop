@@ -30,7 +30,7 @@ export const getProduct: RequestHandler = async (req, res, next) => {
 
 // @desc    Create a product
 // @route   POST /api/products
-// @access  Private/Admin
+// @access  Admin
 export const createProduct: RequestHandler = async (req: CustomRequest, res, next) => {
   const { name, price, image, brand, category, countInStock, numReviews, description } =
     req.body as CreateProduct;
@@ -56,7 +56,7 @@ export const createProduct: RequestHandler = async (req: CustomRequest, res, nex
 
 // @desc    Update a product
 // @route   PATCH /api/products/:id
-// @access  Private/admin
+// @access  admin
 export const updateProduct: RequestHandler = async (req, res, next) => {
   const { name, price, description, image, brand, category, countInStock } =
     req.body as UpdateProduct;
@@ -82,7 +82,7 @@ export const updateProduct: RequestHandler = async (req, res, next) => {
 
 // @desc    Delete a product
 // @route   DELETE /api/products/:id
-// @access  Private/admin
+// @access  admin
 export const deleteProduct: RequestHandler = async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
@@ -98,7 +98,7 @@ export const deleteProduct: RequestHandler = async (req, res, next) => {
 
 // @desc    Upload product image
 // @route   PATCH /api/products/:id
-// @access  Private/Admin
+// @access  Admin
 export const uploadProductImage: RequestHandler = (req, res, next) => {
   if (!req.file) {
     res.status(400);
