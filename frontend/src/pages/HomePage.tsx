@@ -14,6 +14,8 @@ const HomePage = () => {
   const keyword = searchParams.get("q") || "";
   const { data, isLoading, error, isFetching } = useGetAllProductsQuery({ pageNumber, keyword });
 
+  if (data?.products.length === 0) return <Message variant="info">No products found</Message>;
+
   return (
     <Fragment>
       <h1 className="fw-bold">Latest Products</h1>

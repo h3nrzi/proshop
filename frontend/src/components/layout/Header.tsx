@@ -11,6 +11,7 @@ import logo from "../../assets/logo.png";
 import { RootState } from "../../store";
 import { UserInfo } from "../../types/Auth";
 import ThemeSwitch from "../common/ThemeSwitch";
+import SearchBox from "../SearchBox";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Header() {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
+      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <Link to="/" className="text-decoration-none me-auto">
             <Navbar.Brand as="span">
@@ -42,13 +43,15 @@ export default function Header() {
             </Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <div className="d-block d-md-none ms-3">
+          <div className="d-block d-lg-none ms-3">
             <ThemeSwitch />
           </div>
           <Navbar.Collapse id="basic-navbar-nav">
-            <div className="d-md-none m-3"></div>
-            <div className="flex-grow-1"></div>
-            <Nav className="d-md-flex gap-2">
+            <div className="d-lg-none my-3"></div>
+            <div className="flex-grow-1 mb-3 m-lg-0">
+              <SearchBox />
+            </div>
+            <Nav className="d-lg-flex gap-2">
               {userInfo && userInfo.isAdmin && <AdminDropdown />}
               {userInfo ? (
                 <ProfileDropdown onLogout={logoutHandler} userInfo={userInfo} />
@@ -62,12 +65,14 @@ export default function Header() {
               <Link to="/cart" className="text-decoration-none">
                 <Nav.Link as="span">
                   {orderItems.length > 0 && (
-                    <Badge className="me-1">{orderItems.reduce((acc, item) => acc + item.qty, 0)}</Badge>
+                    <Badge className="me-1">
+                      {orderItems.reduce((acc, item) => acc + item.qty, 0)}
+                    </Badge>
                   )}
                   <FaShoppingCart /> Cart
                 </Nav.Link>
               </Link>
-              <div className="d-none d-md-block ms-3">
+              <div className="d-none d-lg-block ms-3">
                 <ThemeSwitch />
               </div>
             </Nav>
@@ -81,7 +86,11 @@ export default function Header() {
 const ProfileDropdown = ({ userInfo, onLogout }: { userInfo: UserInfo; onLogout(): void }) => {
   return (
     <Dropdown>
-      <Dropdown.Toggle id="dropdown-custom-components" size="sm" variant="secondary" className="text-white">
+      <Dropdown.Toggle
+        id="dropdown-custom-components"
+        size="sm"
+        variant="secondary"
+        className="text-white">
         <FaRegUserCircle size={30} />
       </Dropdown.Toggle>
       <Dropdown.Menu>
@@ -98,7 +107,11 @@ const ProfileDropdown = ({ userInfo, onLogout }: { userInfo: UserInfo; onLogout(
 const AdminDropdown = () => {
   return (
     <Dropdown>
-      <Dropdown.Toggle id="dropdown-custom-components" size="sm" variant="secondary" className="text-white">
+      <Dropdown.Toggle
+        id="dropdown-custom-components"
+        size="sm"
+        variant="secondary"
+        className="text-white">
         <MdAdminPanelSettings size={30} />
       </Dropdown.Toggle>
       <Dropdown.Menu>
