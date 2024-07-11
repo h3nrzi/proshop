@@ -7,6 +7,7 @@ import Paginate from "../components/common/Paginate";
 import ProductCard from "../components/ProductCard";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
 import getErrorMessage from "../utils/getErrorMessage";
+import ProductCarousel from "../components/ProductCarousel";
 
 const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -18,6 +19,7 @@ const HomePage = () => {
 
   return (
     <Fragment>
+      {!keyword && <ProductCarousel />}
       <h1 className="fw-bold">Latest Products</h1>
       <Row>
         {isLoading || isFetching ? (

@@ -5,6 +5,8 @@ import { PRODUCT_URL, UPLOAD_URL } from "../utils/constants";
 interface Req {
   GetAll: { pageNumber?: number; keyword?: string };
   GetOne: { productId?: string };
+  TopProducts: void;
+
   Create: { data: Product };
   Update: { productId?: string; data: Product };
   Delete: { productId?: string };
@@ -14,6 +16,8 @@ interface Req {
 interface Res {
   GetAll: { products: Product[]; page: number; pages: number };
   GetOne: Product;
+  TopProducts: Product[];
+
   Create: Product;
   Update: Product;
   Delete: { message: string };
@@ -38,6 +42,10 @@ const productsApi = apiSlice.injectEndpoints({
         url: `${PRODUCT_URL}/${productId}`,
       }),
       providesTags: ["Products"],
+    }),
+
+    getTopProducts: builder.query<Res["TopProducts"], Req["TopProducts"]>({
+      query: () => ({ url: `${PRODUCT_URL}/top` }),
     }),
 
     // Mutations
@@ -96,5 +104,6 @@ export const {
   useUploadProductImageMutation,
   useDeleteProductMutation,
   useCreateProductReviewMutation,
+  useGetTopProductsQuery,
 } = productsApi;
 export default productsApi;

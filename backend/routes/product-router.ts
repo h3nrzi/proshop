@@ -5,6 +5,7 @@ import {
   deleteProduct,
   getAllProducts,
   getProduct,
+  getTopProducts,
   updateProduct,
 } from "../controllers/product-controller";
 import * as auth from "../middlewares/auth";
@@ -12,6 +13,7 @@ import catchAsync from "../middlewares/catchAsync";
 const router = express.Router();
 
 router.get("/", catchAsync(getAllProducts));
+router.get("/top", catchAsync(getTopProducts));
 router.get("/:id", catchAsync(getProduct));
 
 /////////////////// Private
