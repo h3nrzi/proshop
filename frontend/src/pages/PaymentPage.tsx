@@ -30,7 +30,7 @@ const PaymentPage = () => {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />
-      <h1>Payment Method</h1>
+      <h1 className="fw-bold">Payment Method</h1>
       <Form onSubmit={handleSubmit} className="mt-5">
         <Form.Group>
           <Form.Label as="legend">Select Method</Form.Label>

@@ -184,7 +184,7 @@ const OrderDetails: FC<OrderDetailsProps> = ({ order }) => {
   return (
     <ListGroup variant="flush">
       <ListGroup.Item>
-        <h2>Shipping Address</h2>
+        <h2 className="fw-bold">Shipping Address</h2>
         <p>
           <strong className="me-1">Name:</strong>
           {order?.user.name}
@@ -212,7 +212,7 @@ const OrderDetails: FC<OrderDetailsProps> = ({ order }) => {
       </ListGroup.Item>
 
       <ListGroup.Item>
-        <h2>Payment Method</h2>
+        <h2 className="fw-bold">Payment Method</h2>
         <p>{order?.paymentMethod}</p>
         {order?.isPaid ? (
           <Message variant="success">
@@ -224,7 +224,7 @@ const OrderDetails: FC<OrderDetailsProps> = ({ order }) => {
       </ListGroup.Item>
 
       <ListGroup.Item>
-        <h2>Order Items</h2>
+        <h2 className="fw-bold">Order Items</h2>
         {order?.orderItems.map((item) => (
           <ListGroup key={item._id} className="my-5 my-md-2">
             <Row className="align-items-center gap-2 gap-md-0">
@@ -255,7 +255,7 @@ const OrderSummary: FC<OrderSummaryProps> = ({ order }) => {
   return (
     <Fragment>
       <ListGroup.Item>
-        <h2>Order Summary</h2>
+        <h2 className="fw-bold">Order Summary</h2>
       </ListGroup.Item>
       <ListGroup.Item>
         <Row>

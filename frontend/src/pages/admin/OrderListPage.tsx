@@ -14,7 +14,7 @@ export default function OrderListPage() {
 
   return (
     <Fragment>
-      <h1 className="mb-5">Orders</h1>
+      <h1 className="mb-5 fw-bold">Orders</h1>
       {ordersLoading ? (
         <Loader />
       ) : ordersError ? (

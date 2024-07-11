@@ -2,21 +2,25 @@ import _ from "lodash";
 import { Fragment } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDeleteProductMutation, useGetAllProductsQuery } from "../../api/products-api";
 import Loader from "../../components/common/Loader";
 import Message from "../../components/common/Message";
 import Product from "../../types/Product";
 import getErrorMessage from "../../utils/getErrorMessage";
+import Paginate from "../../components/common/Paginate";
 
 export default function ProductListPage() {
+  const [searchParams] = useSearchParams();
+  const pageNumber = Number(searchParams.get("page")) || 1;
   const {
-    data: products,
+    data,
     isLoading: productsLoading,
     error: productsError,
     refetch: productsRefetch,
-  } = useGetAllProductsQuery();
+    isFetching: productsFetching,
+  } = useGetAllProductsQuery({ pageNumber });
   const [deleteProductMutation, { isLoading: deleteProductLoading }] = useDeleteProductMutation();
 
   const deleteProductHandler = async (id: string) => {
@@ -35,20 +39,20 @@ export default function ProductListPage() {
     <Fragment>
       <Row className="align-items-center mb-5">
         <Col>
-          <h1>Products</h1>
+          <h1 className="fw-bold">Products</h1>
         </Col>
         <Col className="text-end">
           <CreateNewProductButton />
         </Col>
       </Row>
-      {productsLoading || deleteProductLoading ? (
+      <Paginate isAdmin={true} page={data?.page} pages={data?.pages} />
+      {productsLoading || deleteProductLoading || productsFetching ? (
         <Loader />
       ) : productsError ? (
         <Message variant="danger">{getErrorMessage(productsError)}</Message>
       ) : (
-        <ProductsTable products={products} onDeleteProduct={deleteProductHandler} />
+        <ProductsTable products={data?.products} onDeleteProduct={deleteProductHandler} />
       )}
-      {/* Paginate Buttons */}
     </Fragment>
   );
 }

@@ -15,7 +15,7 @@ const HomePage = () => {
 
   return (
     <Fragment>
-      <h1>Latest Products</h1>
+      <h1 className="fw-bold">Latest Products</h1>
       <Row>
         {productsQueryLoading ? (
           <Fragment>

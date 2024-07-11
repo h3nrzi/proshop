@@ -56,7 +56,7 @@ const UserListPage = () => {
 
   return (
     <Fragment>
-      <h1 className="mb-5">Users</h1>
+      <h1 className="mb-5 fw-bold">Users</h1>
       {usersLoading || deleteUserLoading ? (
         <Loader />
       ) : usersError ? (

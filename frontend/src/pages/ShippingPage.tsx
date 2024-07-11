@@ -47,7 +47,7 @@ const ShippingPage = () => {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 />
-      <h1>Shipping</h1>
+      <h1 className="fw-bold">Shipping Address</h1>
       <Form className="mt-5" onSubmit={handleSubmit(submitHandler)}>
         <Stack direction="vertical" gap={3}>
           <Form.Group controlId="address">

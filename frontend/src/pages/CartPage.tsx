@@ -33,7 +33,7 @@ const CartPage = () => {
     <Row>
       <CheckoutSteps step1 />
       <Col md={8}>
-        <h1 className="mb-5">Shopping Cart</h1>
+        <h1 className="mb-5 fw-bold">Shopping Cart</h1>
         {orderItems.length === 0 ? (
           <Message variant="info">
             Your cart is empty <Link to="/">Go Back</Link>

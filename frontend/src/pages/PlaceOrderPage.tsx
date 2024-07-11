@@ -64,7 +64,7 @@ interface ShippingInfoProps {
 
 const ShippingInfo = ({ shippingAddress }: ShippingInfoProps) => (
   <ListGroup.Item>
-    <h2>Shipping</h2>
+    <h2 className="fw-bold">Shipping</h2>
     <p>
       <strong className="me-1">Address:</strong>
       {shippingAddress?.address}, {shippingAddress?.city}, {shippingAddress?.postalCode},{" "}
@@ -79,7 +79,7 @@ interface PaymentInfoProps {
 
 const PaymentInfo = ({ paymentMethod }: PaymentInfoProps) => (
   <ListGroup.Item>
-    <h2>Payment Method</h2>
+    <h2 className="fw-bold">Payment Method</h2>
     <p>
       <strong className="me-1">Method:</strong>
       {paymentMethod}
@@ -93,7 +93,7 @@ interface OrderItemsProps {
 
 const OrderItems = ({ orderItems }: OrderItemsProps) => (
   <ListGroup.Item>
-    <h2>Order Items</h2>
+    <h2 className="fw-bold">Order Items</h2>
     {orderItems.length === 0 ? (
       <Message variant="info">Your Cart is empty</Message>
     ) : (
@@ -107,7 +107,9 @@ const OrderItems = ({ orderItems }: OrderItemsProps) => (
               <Link to={`/product/${item._id}`}>{item.name}</Link>
             </Col>
             <Col className="text-md-end">
-              {item.qty > 1 ? `${item.qty} X $${item.price} = $${item.qty * item.price}` : `$${item.price}`}
+              {item.qty > 1
+                ? `${item.qty} X $${item.price} = $${item.qty * item.price}`
+                : `$${item.price}`}
             </Col>
           </Row>
         </ListGroup>
@@ -126,7 +128,7 @@ const OrderSummary = ({ cart, onPlaceOrder, createOrderLoading }: OrderSummaryPr
   <Card>
     <ListGroup variant="flush">
       <ListGroup.Item>
-        <h2>Order Summary</h2>
+        <h2 className="fw-bold">Order Summary</h2>
       </ListGroup.Item>
       <ListGroup.Item>
         <Row>
@@ -153,7 +155,10 @@ const OrderSummary = ({ cart, onPlaceOrder, createOrderLoading }: OrderSummaryPr
         </Row>
       </ListGroup.Item>
       <ListGroup.Item className="text-center">
-        <Button className="text-white w-100" disabled={cart.orderItems.length === 0} onClick={onPlaceOrder}>
+        <Button
+          className="text-white w-100"
+          disabled={cart.orderItems.length === 0}
+          onClick={onPlaceOrder}>
           Place Order
           {createOrderLoading && <Spinner size="sm" className="ms-2" />}
         </Button>
