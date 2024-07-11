@@ -3,7 +3,7 @@ import Product from "../types/Product";
 import { PRODUCT_URL, UPLOAD_URL } from "../utils/constants";
 
 interface Req {
-  GetAll: void;
+  GetAll: { pageNumber?: number; keyword?: string };
   GetOne: { productId?: string };
   Create: { data: Product };
   Update: { productId?: string; data: Product };
@@ -12,7 +12,7 @@ interface Req {
   CreateReview: { comment: string; rating: number; productId?: string };
 }
 interface Res {
-  GetAll: Product[];
+  GetAll: { products: Product[]; page: number; pages: number };
   GetOne: Product;
   Create: Product;
   Update: Product;
@@ -26,8 +26,9 @@ const productsApi = apiSlice.injectEndpoints({
     // Queries
 
     getAllProducts: builder.query<Res["GetAll"], Req["GetAll"]>({
-      query: () => ({
+      query: ({ pageNumber, keyword }) => ({
         url: PRODUCT_URL,
+        params: { pageNumber, keyword },
       }),
       providesTags: ["Products"],
     }),
