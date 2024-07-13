@@ -36,13 +36,11 @@ const ProductNewPage = () => {
   useEffect(() => setValue("image", "/images/sample.jpg"), [setValue]);
 
   const submitHandler: SubmitHandler<FormData> = async (data) => {
-    console.log(data.image);
     try {
       await createProductMutation({ data });
       toast.success("Product created successfully!", { position: "top-center" });
       navigate("/admin/product-list");
     } catch (err: any) {
-      console.log(err.message);
       toast.error(err?.data?.message || err?.error, { position: "top-center" });
     }
   };

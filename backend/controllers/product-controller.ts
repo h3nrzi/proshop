@@ -48,8 +48,6 @@ export const createProduct: RequestHandler = async (req: CustomRequest, res, nex
   const { name, price, image, brand, category, countInStock, numReviews, description } =
     req.body as CreateProduct;
 
-  console.log(req.body);
-
   const product = new Product({
     user: req.user._id,
     name,
