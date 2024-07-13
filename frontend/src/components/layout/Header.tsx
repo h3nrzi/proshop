@@ -11,7 +11,7 @@ import logo from "../../assets/logo.png";
 import { RootState } from "../../store";
 import { UserInfo } from "../../types/Auth";
 import ThemeSwitch from "../common/ThemeSwitch";
-import SearchBox from "../SearchBox";
+import SearchBox from "../common/SearchBox";
 
 export default function Header() {
   const navigate = useNavigate();
