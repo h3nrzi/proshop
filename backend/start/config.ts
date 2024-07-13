@@ -17,6 +17,9 @@ module.exports = (app: Express) => {
   // Logging Request
   if (NODE_ENV === "development") app.use(morgan("dev"));
 
+  // Serve frontend source files
+  if (NODE_ENV === "production") app.use(express.static(path.join(rootDir, "/frontend/dist")));
+
   // Serve Upload Directory
   app.use("/uploads", express.static(path.join(rootDir, "/uploads")));
 };
