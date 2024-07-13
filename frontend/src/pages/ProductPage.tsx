@@ -12,6 +12,7 @@ import ProductDetail from "../components/ProductDetail";
 import ProductDetailPlaceholder from "../components/ProductDetailSkeleton";
 import { RootState } from "../store";
 import getErrorMessage from "../utils/getErrorMessage";
+import Meta from "../components/common/Meta";
 
 interface FormData {
   rating: number;
@@ -78,6 +79,7 @@ export default function ProductPage() {
 
   return (
     <Fragment>
+      <Meta title={product?.name} description={product?.description} />
       {productQueryLoading ? (
         <ProductDetailPlaceholder />
       ) : productQueryError ? (

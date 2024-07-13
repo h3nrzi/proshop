@@ -8,6 +8,7 @@ import ProductCard from "../components/ProductCard";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
 import getErrorMessage from "../utils/getErrorMessage";
 import ProductCarousel from "../components/ProductCarousel";
+import Meta from "../components/common/Meta";
 
 const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -19,6 +20,7 @@ const HomePage = () => {
 
   return (
     <Fragment>
+      <Meta />
       {!keyword && <ProductCarousel />}
       <h1 className="fw-bold">Latest Products</h1>
       <Row>
