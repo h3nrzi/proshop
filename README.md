@@ -1,5 +1,7 @@
 # ProShop
 
+![ProShop Cover](./frontend/src/assets/cover.png)
+
 ## Overview
 
 **ProShop** is an eCommerce application built using the MERN stack (MongoDB, Express, React, Node.js). The application provides a robust platform for managing products, users, and orders, complete with authentication and authorization features.
