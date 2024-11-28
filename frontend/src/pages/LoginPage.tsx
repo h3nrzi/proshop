@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Col, Form, Row, Spinner, Stack } from "react-bootstrap";
+import { Button, Col, Form, Row, Spinner, Stack, Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -54,7 +54,11 @@ const LoginPage = () => {
           </Form.Group>
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter Your Password..." {...register("password")} />
+            <Form.Control
+              type="password"
+              placeholder="Enter Your Password..."
+              {...register("password")}
+            />
           </Form.Group>
           <Button type="submit" variant="primary" className="w-25" disabled={LoginLoading}>
             Sign In
@@ -68,6 +72,13 @@ const LoginPage = () => {
           <Link to={redirect ? `/register?redirect=${redirect}` : "/register"} className="ms-1">
             Register
           </Link>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Alert variant="info" className="text-red">
+            Discover as Admin: admin@gmail.com | password: 123456
+          </Alert>
         </Col>
       </Row>
     </FormContainer>
